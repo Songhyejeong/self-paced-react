@@ -4,7 +4,6 @@ import CategoryFilter from './components/main/categoryFilter/CategoryFilter';
 import RestaurantList from './components/main/restaurant/RestaurantList';
 import AddRestaurantModal from './components/aside/AddRestaurantModal';
 import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
-
 import { useState } from 'react';
 import { restaurants } from './components/constants/Restaurants';
 
@@ -35,7 +34,13 @@ function App() {
   };
 
   const handleCloseButtonClick = () => {
-    setIsModalOpen(false);
+    if (isModalOpen) {
+      setIsModalOpen(false);
+    }
+
+    if (isAddModalOpen) {
+      setIsAddModalOpen(false);
+    }
   };
 
   const handleAddRestaurantClick = () => {
@@ -66,7 +71,10 @@ function App() {
           />
         )}
         {isAddModalOpen && (
-          <AddRestaurantModal onSubmit={handleAddRestaurantSubmit} />
+          <AddRestaurantModal
+            onSubmit={handleAddRestaurantSubmit}
+            onCloseButtonClick={handleCloseButtonClick}
+          />
         )}
       </aside>
     </>
