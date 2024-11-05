@@ -9,28 +9,43 @@ import { useState } from 'react';
 import { restaurants } from './components/constants/Restaurants';
 
 function App() {
-  
   const [category, setCategory] = useState('전체');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   let filteredRestaurants = [];
+
   if (category === '전체') {
     filteredRestaurants = restaurants;
-  } else if (category !== '전체') {
+  }
+
+  if (category !== '전체') {
     filteredRestaurants = restaurants.filter(
       (restaurant) => restaurant.category === category
     );
   }
 
+  const hanleCardClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseButtonClick = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
       <Header />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
-        <RestaurantList restaurants={filteredRestaurants} />
+        <RestaurantList
+          restaurants={filteredRestaurants}
+          onCardClick={hanleCardClick}
+        />
       </main>
       <aside>
-        <RestaurantDetailModal />
-        <AddRestaurantModal />
+        {isModalOpen && (
+          <RestaurantDetailModal onCloseButtonClick={handleCloseButtonClick} />
+        )}
       </aside>
     </>
   );

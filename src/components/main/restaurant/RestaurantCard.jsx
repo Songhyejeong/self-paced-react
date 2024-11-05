@@ -23,11 +23,11 @@ const getCategoryIcon = (alt) => {
   }
 };
 
-const RestaurantCard = ({ alt, name, description }) => {
+const RestaurantCard = ({ alt, name, description, onCardClick }) => {
   const image = getCategoryIcon(alt);
 
   return (
-    <li className={styles.restaurant}>
+    <li className={styles.restaurant} onClick={onCardClick}>
       <div className={styles.restaurant__category}>
         <img src={image} alt={alt} className={styles.categoryIcon} />
       </div>
