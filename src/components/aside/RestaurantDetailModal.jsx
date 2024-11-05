@@ -1,5 +1,5 @@
 import styles from '../../css/Modal.module.css';
-import Modal from '../common/Modal';
+import Modal from '../common/modal/Modal';
 
 const RestaurantDetailModal = ({
   onCloseButtonClick,

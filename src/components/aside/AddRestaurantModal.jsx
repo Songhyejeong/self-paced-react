@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../../css/Modal.module.css';
 import { CATEGORYOPTION } from '../constants/CategoryOption';
-import Modal from '../common/Modal';
+import Modal from '../common/modal/Modal';
 
 const AddRestaurantModal = ({ onSubmit, onCloseButtonClick }) => {
   const [category, setCategory] = useState('');
