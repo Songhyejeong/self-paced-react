@@ -11,17 +11,19 @@ import { restaurants } from './components/constants/Restaurants';
 function App() {
   const [category, setCategory] = useState('전체');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectName, setSelectName] = useState('');
   const [selectDescription, setSelectDescription] = useState('');
+  const [restaurantsList, setRestaurantsList] = useState(restaurants);
 
   let filteredRestaurants = [];
 
   if (category === '전체') {
-    filteredRestaurants = restaurants;
+    filteredRestaurants = restaurantsList;
   }
 
   if (category !== '전체') {
-    filteredRestaurants = restaurants.filter(
+    filteredRestaurants = restaurantsList.filter(
       (restaurant) => restaurant.category === category
     );
   }
@@ -36,9 +38,18 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const handleAddRestaurantClick = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleAddRestaurantSubmit = (newRestaurants) => {
+    setRestaurantsList(newRestaurants);
+    setIsAddModalOpen(false);
+  };
+
   return (
     <>
-      <Header />
+      <Header onAddRestaurantClick={handleAddRestaurantClick} />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
         <RestaurantList
@@ -53,6 +64,9 @@ function App() {
             restaurantName={selectName}
             restaurantDescription={selectDescription}
           />
+        )}
+        {isAddModalOpen && (
+          <AddRestaurantModal onSubmit={handleAddRestaurantSubmit} />
         )}
       </aside>
     </>
