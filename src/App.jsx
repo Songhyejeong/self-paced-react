@@ -6,11 +6,7 @@ import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import { useState } from 'react';
 import { restaurants } from './components/constants/Restaurants';
 
-import { useState } from 'react';
-import { restaurants } from './components/constants/Restaurants';
-
 function App() {
-
   const [category, setCategory] = useState('전체');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectName, setSelectName] = useState('');
@@ -34,11 +30,6 @@ function App() {
     setIsModalOpen(true);
   };
 
-  const handleCloseButtonClick = () => {
-    setIsModalOpen(false);
-  };
-
-
   return (
     <>
       <Header />
@@ -52,7 +43,7 @@ function App() {
       <aside>
         {isModalOpen && (
           <RestaurantDetailModal
-            onCloseButtonClick={handleCloseButtonClick}
+            onCloseButtonClick={() => setIsModalOpen(false)}
             restaurantName={selectName}
             restaurantDescription={selectDescription}
           />
