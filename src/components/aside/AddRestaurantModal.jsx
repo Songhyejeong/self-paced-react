@@ -8,9 +8,9 @@ const AddRestaurantModal = ({ onSubmit, onCloseButtonClick }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  const isFilloutHandler = () => {
+  const validateFilledout = () => {
     if (!category) {
-      alert('카테코리를 선택해주세요');
+      alert('카테고리를 선택해주세요');
       return false;
     }
     if (!name) {
@@ -37,9 +37,9 @@ const AddRestaurantModal = ({ onSubmit, onCloseButtonClick }) => {
 
   const checkFormHandler = (e) => {
     e.preventDefault();
-    const isFilloutAll = isFilloutHandler();
+    const isFilledoutAll = validateFilledout();
 
-    if (isFilloutAll) {
+    if (isFilledoutAll) {
       submitFormHandler();
     }
   };
