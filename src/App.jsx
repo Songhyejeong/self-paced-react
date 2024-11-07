@@ -7,11 +7,7 @@ import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import { useState } from 'react';
 import { restaurants } from './components/constants/Restaurants';
 
-import { useState } from 'react';
-import { restaurants } from './components/constants/Restaurants';
-
 function App() {
-
   const [category, setCategory] = useState('전체');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -27,7 +23,6 @@ function App() {
 
   if (category !== '전체') {
     filteredRestaurants = restaurantsList.filter(
-
       (restaurant) => restaurant.category === category
     );
   }
@@ -66,7 +61,6 @@ function App() {
           restaurants={filteredRestaurants}
           onCardClick={hanleCardClick}
         />
-
       </main>
       <aside>
         {isModalOpen && (
