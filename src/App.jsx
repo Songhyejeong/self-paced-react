@@ -19,9 +19,7 @@ function App() {
 
   if (category === '전체') {
     filteredRestaurants = restaurantsList;
-  }
-
-  if (category !== '전체') {
+  } else {
     filteredRestaurants = restaurantsList.filter(
       (restaurant) => restaurant.category === category
     );
