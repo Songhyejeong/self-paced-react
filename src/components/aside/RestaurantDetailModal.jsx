@@ -2,12 +2,12 @@ import styles from '../../css/Modal.module.css';
 import Modal from '../common/modal/Modal';
 
 const RestaurantDetailModal = ({
-  onCloseButtonClick,
+  setIsModalOpen,
   restaurantName,
   restaurantDescription,
 }) => {
   return (
-    <Modal title={restaurantName} onCloseButtonClick={onCloseButtonClick}>
+    <Modal title={restaurantName} onClose={() => setIsModalOpen(false)}>
       <div className={styles.restaurantInfo}>
         <p className={`${styles.restaurantDescription} text-body}`}>
           {restaurantDescription}
@@ -16,7 +16,7 @@ const RestaurantDetailModal = ({
       <div className={styles.buttonContainer}>
         <button
           className={` ${styles.button} ${styles.buttonPrimary} text-caption`}
-          onClick={onCloseButtonClick}
+          onClick={() => setIsModalOpen(false)}
         >
           닫기
         </button>

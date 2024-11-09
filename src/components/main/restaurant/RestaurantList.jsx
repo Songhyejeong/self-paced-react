@@ -1,7 +1,11 @@
 import styles from '../../../css/Restaurant.module.css';
 import RestaurantCard from './RestaurantCard';
 
-const RestaurantList = ({ restaurants, onCardClick }) => {
+const RestaurantList = ({
+  restaurants,
+  setIsModalOpen,
+  setSelectedRestaurant,
+}) => {
   return (
     <section className={`${styles.restaurantListContainer}`}>
       <ul className={`${styles.restaurantList}`}>
@@ -12,7 +16,8 @@ const RestaurantList = ({ restaurants, onCardClick }) => {
               alt={item.category}
               name={item.name}
               description={item.description}
-              onCardClick={onCardClick}
+              setIsModalOpen={setIsModalOpen}
+              setSelectedRestaurant={setSelectedRestaurant}
             />
           );
         })}

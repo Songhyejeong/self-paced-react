@@ -3,7 +3,7 @@ import styles from '../../css/Modal.module.css';
 import { CATEGORYOPTION } from '../constants/CategoryOption';
 import Modal from '../common/modal/Modal';
 
-const AddRestaurantModal = ({ onSubmit, onCloseButtonClick }) => {
+const AddRestaurantModal = ({ onSubmit, setIsAddModalOpen }) => {
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -45,8 +45,8 @@ const AddRestaurantModal = ({ onSubmit, onCloseButtonClick }) => {
   };
 
   return (
-    <Modal title="새로운 음식점" onCloseButtonClick={onCloseButtonClick}>
-      <form>
+    <Modal title="새로운 음식점" onClose={() => setIsAddModalOpen(false)}>
+      <form onSubmit={(e) => checkFormHandler(e)}>
         <div className={`${styles.formItem} ${styles.formItemRequired}`}>
           <label htmlFor="category" className={` text-caption`}>
             카테고리
@@ -98,7 +98,6 @@ const AddRestaurantModal = ({ onSubmit, onCloseButtonClick }) => {
         <div className={styles.buttonContainer}>
           <button
             className={`${styles.button} ${styles.buttonPrimary} text-caption`}
-            onClick={(e) => checkFormHandler(e)}
           >
             추가하기
           </button>

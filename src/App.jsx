@@ -11,8 +11,10 @@ function App() {
   const [category, setCategory] = useState('전체');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [selectName, setSelectName] = useState('');
-  const [selectDescription, setSelectDescription] = useState('');
+  const [selectedRestaurant, setSelectedRestaurant] = useState({
+    name: '',
+    description: '',
+  });
   const [restaurantsList, setRestaurantsList] = useState(restaurants);
 
   let filteredRestaurants = [];
@@ -25,53 +27,29 @@ function App() {
     );
   }
 
-  const hanleCardClick = ({ name, description }) => {
-    setSelectName(name);
-    setSelectDescription(description);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseButtonClick = () => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-    }
-
-    if (isAddModalOpen) {
-      setIsAddModalOpen(false);
-    }
-  };
-
-  const handleAddRestaurantClick = () => {
-    setIsAddModalOpen(true);
-  };
-
-  const handleAddRestaurantSubmit = (newRestaurants) => {
-    setRestaurantsList(newRestaurants);
-    setIsAddModalOpen(false);
-  };
-
   return (
     <>
-      <Header onAddRestaurantClick={handleAddRestaurantClick} />
+      <Header onAddRestaurantClick={setIsAddModalOpen} />
       <main>
         <CategoryFilter category={category} onChangeCategory={setCategory} />
         <RestaurantList
           restaurants={filteredRestaurants}
-          onCardClick={hanleCardClick}
+          setIsModalOpen={setIsModalOpen}
+          setSelectedRestaurant={setSelectedRestaurant}
         />
       </main>
       <aside>
         {isModalOpen && (
           <RestaurantDetailModal
-            onCloseButtonClick={handleCloseButtonClick}
-            restaurantName={selectName}
-            restaurantDescription={selectDescription}
+            setIsModalOpen={setIsModalOpen}
+            restaurantName={selectedRestaurant.name}
+            restaurantDescription={selectedRestaurant.description}
           />
         )}
         {isAddModalOpen && (
           <AddRestaurantModal
-            onSubmit={handleAddRestaurantSubmit}
-            onCloseButtonClick={handleCloseButtonClick}
+            onSubmit={setRestaurantsList}
+            setIsAddModalOpen={setIsAddModalOpen}
           />
         )}
       </aside>
