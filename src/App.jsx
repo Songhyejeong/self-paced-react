@@ -2,7 +2,6 @@ import './App.css';
 import Header from './components/common/header/Header';
 import CategoryFilter from './components/main/categoryFilter/CategoryFilter';
 import RestaurantList from './components/main/restaurant/RestaurantList';
-import AddRestaurantModal from './components/aside/AddRestaurantModal';
 import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import { useState } from 'react';
 import { restaurants } from './components/constants/Restaurants';
