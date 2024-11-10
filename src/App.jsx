@@ -9,8 +9,10 @@ import { restaurants } from './components/constants/Restaurants';
 function App() {
   const [category, setCategory] = useState('전체');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectName, setSelectName] = useState('');
-  const [selectDescription, setSelectDescription] = useState('');
+  const [selectedRestaurant, setSelectedRestaurant] = useState({
+    name: '',
+    description: '',
+  });
 
   let filteredRestaurants = [];
 
@@ -24,12 +26,6 @@ function App() {
     );
   }
 
-  const hanleCardClick = ({ name, description }) => {
-    setSelectName(name);
-    setSelectDescription(description);
-    setIsModalOpen(true);
-  };
-
   return (
     <>
       <Header />
@@ -37,15 +33,16 @@ function App() {
         <CategoryFilter category={category} onChangeCategory={setCategory} />
         <RestaurantList
           restaurants={filteredRestaurants}
-          onCardClick={hanleCardClick}
+          setSelectedRestaurant={setSelectedRestaurant}
+          setIsModalOpen={setIsModalOpen}
         />
       </main>
       <aside>
         {isModalOpen && (
           <RestaurantDetailModal
             onCloseButtonClick={() => setIsModalOpen(false)}
-            restaurantName={selectName}
-            restaurantDescription={selectDescription}
+            restaurantName={selectedRestaurant.name}
+            restaurantDescription={selectedRestaurant.description}
           />
         )}
       </aside>

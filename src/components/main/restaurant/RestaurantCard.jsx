@@ -23,14 +23,22 @@ const getCategoryIcon = (alt) => {
   }
 };
 
-const RestaurantCard = ({ alt, name, description, onCardClick }) => {
+const RestaurantCard = ({
+  alt,
+  name,
+  description,
+  setIsModalOpen,
+  setSelectedRestaurant,
+}) => {
   const image = getCategoryIcon(alt);
 
+  const hanldeCardClick = () => {
+    setIsModalOpen(true);
+    setSelectedRestaurant({ name, description });
+  };
+
   return (
-    <li
-      className={styles.restaurant}
-      onClick={() => onCardClick({ name, description })}
-    >
+    <li className={styles.restaurant} onClick={hanldeCardClick}>
       <div className={styles.restaurant__category}>
         <img src={image} alt={alt} className={styles.categoryIcon} />
       </div>
