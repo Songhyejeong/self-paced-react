@@ -32,13 +32,13 @@ const RestaurantCard = ({
 }) => {
   const image = getCategoryIcon(alt);
 
-  const hanldeCardClick = () => {
+  const handleCardClick = () => {
     setIsModalOpen(true);
     setSelectedRestaurant({ name, description });
   };
 
   return (
-    <li className={styles.restaurant} onClick={hanldeCardClick}>
+    <li className={styles.restaurant} onClick={handleCardClick}>
       <div className={styles.restaurant__category}>
         <img src={image} alt={alt} className={styles.categoryIcon} />
       </div>

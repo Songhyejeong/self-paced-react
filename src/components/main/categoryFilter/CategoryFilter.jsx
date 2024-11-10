@@ -1,7 +1,6 @@
 import styles from '../../../css/Category.module.css';
 import { CATEGORYOPTION } from '../../constants/CategoryOption';
 
-
 const CategoryFilter = ({ category, onChangeCategory }) => {
   return (
     <main>
