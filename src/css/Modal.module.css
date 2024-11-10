@@ -1,10 +1,10 @@
 /* 음식점 정보/추가 모달 *****************************************/
 .modal {
-  display: none;
+  display: block;
 }
 
 .modalOpen {
-  display: none;
+  display: block;
 }
 
 .modalBackdrop {

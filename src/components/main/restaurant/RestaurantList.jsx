@@ -1,8 +1,11 @@
-
 import styles from '../../../css/Restaurant.module.css';
 import RestaurantCard from './RestaurantCard';
 
-const RestaurantList = ({ restaurants }) => {
+const RestaurantList = ({
+  restaurants,
+  setSelectedRestaurant,
+  setIsModalOpen,
+}) => {
   return (
     <section className={`${styles.restaurantListContainer}`}>
       <ul className={`${styles.restaurantList}`}>
@@ -14,10 +17,11 @@ const RestaurantList = ({ restaurants }) => {
                 alt={item.category}
                 name={item.name}
                 description={item.description}
+                setSelectedRestaurant={setSelectedRestaurant}
+                setIsModalOpen={setIsModalOpen}
               />
             );
           })}
-
       </ul>
     </section>
   );
