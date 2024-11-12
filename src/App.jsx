@@ -2,9 +2,10 @@ import './App.css';
 import Header from './components/common/header/Header';
 import CategoryFilter from './components/main/categoryFilter/CategoryFilter';
 import RestaurantList from './components/main/restaurant/RestaurantList';
+import AddRestaurantModal from './components/aside/AddRestaurantModal';
 import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import { useState } from 'react';
-import { restaurants } from './components/constants/Restaurants';
+import { useEffect } from 'react';
 
 function App() {
   const [category, setCategory] = useState('전체');
@@ -14,7 +15,7 @@ function App() {
     name: '',
     description: '',
   });
-  const [restaurantsList, setRestaurantsList] = useState(restaurants);
+  const [restaurantsList, setRestaurantsList] = useState([]);
 
   let filteredRestaurants = [];
 
@@ -25,6 +26,19 @@ function App() {
       (restaurant) => restaurant.category === category
     );
   }
+
+  const getRestaurant = async () => {
+    const response = await fetch('http://localhost:3000/restaurants');
+    const jsonData = await response.json();
+
+    if (response.ok) {
+      setRestaurantsList([...jsonData]);
+    }
+  };
+
+  useEffect(() => {
+    getRestaurant();
+  }, []);
 
   return (
     <>
@@ -47,8 +61,8 @@ function App() {
         )}
         {isAddModalOpen && (
           <AddRestaurantModal
-            onSubmit={setRestaurantsList}
             setIsAddModalOpen={setIsAddModalOpen}
+            getRestaurant={getRestaurant}
           />
         )}
       </aside>

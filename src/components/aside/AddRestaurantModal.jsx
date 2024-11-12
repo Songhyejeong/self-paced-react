@@ -3,7 +3,7 @@ import styles from '../../css/Modal.module.css';
 import { CATEGORYOPTION } from '../constants/CategoryOption';
 import Modal from '../common/modal/Modal';
 
-const AddRestaurantModal = ({ onSubmit, setIsAddModalOpen }) => {
+const AddRestaurantModal = ({ getRestaurant, setIsAddModalOpen }) => {
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -24,15 +24,27 @@ const AddRestaurantModal = ({ onSubmit, setIsAddModalOpen }) => {
     return true;
   };
 
-  const submitFormHandler = () => {
-    const newRestaurant = {
-      id: Date.now(),
-      category: category,
-      name: name,
-      description: description,
-    };
+  const newRestaurant = {
+    id: Date.now(),
+    category: category,
+    name: name,
+    description: description,
+  };
 
-    onSubmit((prev) => [...prev, newRestaurant]);
+  const submitFormHandler = async () => {
+    const response = await fetch('http://localhost:3000/restaurants', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newRestaurant),
+    });
+
+    if (response.ok) {
+      await getRestaurant();
+    } else {
+      console.log(response);
+    }
   };
 
   const checkFormHandler = (e) => {
@@ -41,6 +53,7 @@ const AddRestaurantModal = ({ onSubmit, setIsAddModalOpen }) => {
 
     if (isFilledoutAll) {
       submitFormHandler();
+      setIsAddModalOpen(false);
     }
   };
 
