@@ -1,14 +1,11 @@
 import './App.css';
-import Header from './components/common/header/Header';
-import CategoryFilter from './components/main/categoryFilter/CategoryFilter';
-import RestaurantList from './components/main/restaurant/RestaurantList';
-import AddRestaurantModal from './components/aside/AddRestaurantModal';
-import RestaurantDetailModal from './components/aside/RestaurantDetailModal';
 import { useState, useEffect } from 'react';
+import Main from './components/main/main/Main';
+import Aside from './components/aside/Aside';
 
 function App() {
   const [category, setCategory] = useState('전체');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState({
     name: '',
@@ -16,15 +13,12 @@ function App() {
   });
   const [restaurantsList, setRestaurantsList] = useState([]);
 
-  let filteredRestaurants = [];
-
-  if (category === '전체') {
-    filteredRestaurants = restaurantsList;
-  } else {
-    filteredRestaurants = restaurantsList.filter(
-      (restaurant) => restaurant.category === category
-    );
-  }
+  const filteredRestaurants =
+    category === '전체'
+      ? restaurantsList
+      : restaurantsList.filter(
+          (restaurant) => restaurant.category === category
+        );
 
   const getRestaurant = async () => {
     const response = await fetch('http://localhost:3000/restaurants');
@@ -40,32 +34,24 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Header onAddRestaurantClick={setIsAddModalOpen} />
-      <main>
-        <CategoryFilter category={category} onChangeCategory={setCategory} />
-        <RestaurantList
-          restaurants={filteredRestaurants}
-          setIsModalOpen={setIsModalOpen}
-          setSelectedRestaurant={setSelectedRestaurant}
-        />
-      </main>
-      <aside>
-        {isModalOpen && (
-          <RestaurantDetailModal
-            setIsModalOpen={setIsModalOpen}
-            restaurantName={selectedRestaurant.name}
-            restaurantDescription={selectedRestaurant.description}
-          />
-        )}
-        {isAddModalOpen && (
-          <AddRestaurantModal
-            setIsAddModalOpen={setIsAddModalOpen}
-            getRestaurant={getRestaurant}
-          />
-        )}
-      </aside>
-    </>
+    <div>
+      <Main
+        category={category}
+        setCategory={setCategory}
+        filteredRestaurants={filteredRestaurants}
+        setIsModalOpen={setIsModalOpen}
+        setSelectedRestaurant={setSelectedRestaurant}
+        setIsAddModalOpen={setIsAddModalOpen}
+      />
+      <Aside
+        isModalOpen={isModalOpen}
+        isAddModalOpen={isAddModalOpen}
+        selectedRestaurant={selectedRestaurant}
+        setIsModalOpen={setIsModalOpen}
+        setIsAddModalOpen={setIsAddModalOpen}
+        getRestaurant={getRestaurant}
+      />
+    </div>
   );
 }
 
