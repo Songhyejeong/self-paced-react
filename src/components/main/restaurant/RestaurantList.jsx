@@ -1,6 +1,5 @@
 import styles from '../../../css/Restaurant.module.css';
 import RestaurantCard from './RestaurantCard';
-import { useState } from 'react';
 
 const RestaurantList = ({
   restaurants,
