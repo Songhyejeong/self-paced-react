@@ -4,7 +4,6 @@ import Main from './components/main/main/Main';
 import Aside from './components/aside/Aside';
 
 function App() {
-  const [category, setCategory] = useState('전체');
   const [isModalOpen, setIsModalOpen] = useState();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState({
@@ -12,13 +11,6 @@ function App() {
     description: '',
   });
   const [restaurantsList, setRestaurantsList] = useState([]);
-
-  const filteredRestaurants =
-    category === '전체'
-      ? restaurantsList
-      : restaurantsList.filter(
-          (restaurant) => restaurant.category === category
-        );
 
   const getRestaurant = async () => {
     const response = await fetch('http://localhost:3000/restaurants');
@@ -36,9 +28,7 @@ function App() {
   return (
     <div>
       <Main
-        category={category}
-        setCategory={setCategory}
-        filteredRestaurants={filteredRestaurants}
+        restaurantsList={restaurantsList}
         setIsModalOpen={setIsModalOpen}
         setSelectedRestaurant={setSelectedRestaurant}
         setIsAddModalOpen={setIsAddModalOpen}

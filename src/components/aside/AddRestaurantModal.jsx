@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from '../../css/Modal.module.css';
 import { CATEGORYOPTION } from '../constants/CategoryOption';
 import Modal from '../common/modal/Modal';
+import { postRestaurant } from '../../api/restaurant';
 
 const AddRestaurantModal = ({ getRestaurant, setIsAddModalOpen }) => {
   const [category, setCategory] = useState('');
@@ -32,16 +33,11 @@ const AddRestaurantModal = ({ getRestaurant, setIsAddModalOpen }) => {
   };
 
   const submitFormHandler = async () => {
-    const response = await fetch('http://localhost:3000/restaurants', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newRestaurant),
-    });
+    const response = await postRestaurant(newRestaurant);
 
     if (response.ok) {
       await getRestaurant();
+      setIsAddModalOpen(false);
     } else {
       console.log(response);
     }
@@ -110,6 +106,7 @@ const AddRestaurantModal = ({ getRestaurant, setIsAddModalOpen }) => {
         </div>
         <div className={styles.buttonContainer}>
           <button
+            type="submit"
             className={`${styles.button} ${styles.buttonPrimary} text-caption`}
           >
             추가하기
