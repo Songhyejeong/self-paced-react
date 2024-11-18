@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Main from './components/main/main/Main';
 import Aside from './components/aside/Aside';
+import { getRestaurant } from './api/restaurant';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState();
@@ -12,17 +13,8 @@ function App() {
   });
   const [restaurantsList, setRestaurantsList] = useState([]);
 
-  const getRestaurant = async () => {
-    const response = await fetch('http://localhost:3000/restaurants');
-    const jsonData = await response.json();
-
-    if (response.ok) {
-      setRestaurantsList([...jsonData]);
-    }
-  };
-
   useEffect(() => {
-    getRestaurant();
+    getRestaurant(setRestaurantsList);
   }, []);
 
   return (
@@ -39,7 +31,7 @@ function App() {
         selectedRestaurant={selectedRestaurant}
         setIsModalOpen={setIsModalOpen}
         setIsAddModalOpen={setIsAddModalOpen}
-        getRestaurant={getRestaurant}
+        setRestaurantsList={setRestaurantsList}
       />
     </div>
   );

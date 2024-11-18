@@ -7,7 +7,7 @@ function Aside({
   selectedRestaurant,
   setIsModalOpen,
   setIsAddModalOpen,
-  getRestaurant,
+  setRestaurantsList,
 }) {
   return (
     <aside>
@@ -21,7 +21,7 @@ function Aside({
       {isAddModalOpen && (
         <AddRestaurantModal
           setIsAddModalOpen={setIsAddModalOpen}
-          getRestaurant={getRestaurant}
+          setRestaurantsList={setRestaurantsList}
         />
       )}
     </aside>

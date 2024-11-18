@@ -3,8 +3,9 @@ import styles from '../../css/Modal.module.css';
 import { CATEGORYOPTION } from '../constants/CategoryOption';
 import Modal from '../common/modal/Modal';
 import { postRestaurant } from '../../api/restaurant';
+import { getRestaurant } from '../../api/restaurant';
 
-const AddRestaurantModal = ({ getRestaurant, setIsAddModalOpen }) => {
+const AddRestaurantModal = ({ setRestaurantsList, setIsAddModalOpen }) => {
   const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -33,13 +34,17 @@ const AddRestaurantModal = ({ getRestaurant, setIsAddModalOpen }) => {
   };
 
   const submitFormHandler = async () => {
-    const response = await postRestaurant(newRestaurant);
+    try {
+      const response = await postRestaurant(newRestaurant);
 
-    if (response.ok) {
-      await getRestaurant();
-      setIsAddModalOpen(false);
-    } else {
-      console.log(response);
+      if (response.ok) {
+        await getRestaurant(setRestaurantsList);
+        setIsAddModalOpen(false);
+      } else {
+        console.log(response);
+      }
+    } catch (error) {
+      console.error('Error posting restaurants', error);
     }
   };
 

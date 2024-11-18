@@ -1,8 +1,16 @@
-export const getRestaurant = async () => {
-  const response = await fetch('http://localhost:3000/restaurants');
-  const jsonData = await response.json();
+export const getRestaurant = async (setRestaurantsList) => {
+  try {
+    const response = await fetch('http://localhost:3000/restaurants');
+    const jsonData = await response.json();
 
-  return jsonData;
+    if (response.ok) {
+      setRestaurantsList(jsonData);
+    } else {
+      console.error('Failed to fetch restaurants:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error fetching restaurants:', error);
+  }
 };
 
 export const postRestaurant = async (newRestaurant) => {
